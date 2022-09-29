@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import produce from "immer";
 
-const GameBoard = ({ grid, numCols, numRows }) => {
-  function handleClick() {}
+const GameBoard = ({ grid, numCols, numRows, setGrid, player, setUser }) => {
+  function handleClick(i, k) {
+    if (grid[i][k] === "") {
+      const newGrid = produce(grid, (gridCopy) => {
+        gridCopy[i][k] = player;
+      });
+      setGrid(newGrid);
+      setUser();
+    }
+  }
   return (
     <div
       className="boardContainer"
@@ -19,9 +28,7 @@ const GameBoard = ({ grid, numCols, numRows }) => {
               handleClick(i, k);
             }}
             style={{
-              //   width: auto,
-              //   height: 22,
-              backgroundColor: "#31cc5f",
+              backgroundColor: "gray",
               border: "1px solid #595959",
             }}
           >

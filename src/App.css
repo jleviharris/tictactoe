@@ -13,3 +13,7 @@
   background: gray;
   margin: 0px 0px 20px 0px;
 }
+.none {
+  /* display: none; */
+  background: whitesmoke;
+}
