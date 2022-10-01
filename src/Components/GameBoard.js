@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import produce from "immer";
 
 const GameBoard = ({
   grid,
   numCols,
-  numRows,
   setGrid,
   player,
   setUser,
   checkWin,
-  running,
   setRunning,
+  switchClass,
 }) => {
   function handleClick(i, k) {
     if (grid[i][k] === "") {
@@ -19,6 +18,7 @@ const GameBoard = ({
       });
       setGrid(newGrid);
       setUser();
+      switchClass();
       setTimeout(() => {
         checkWin(newGrid);
       }, 300);
@@ -39,7 +39,6 @@ const GameBoard = ({
             key={i - k}
             onClick={() => {
               handleClick(i, k);
-
               setRunning(true);
             }}
             style={{

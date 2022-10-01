@@ -6,6 +6,7 @@
   width: 100vw;
   height: 100vh;
   flex-direction: column;
+  background: cadetblue;
 }
 .box {
   display: flex;
@@ -46,9 +47,42 @@
   flex-direction: row;
   justify-content: space-around;
 }
-.xScore {
+.xScoreOn {
   margin: 1rem;
+  background: #0afdec;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0px 0px 12px #18191b;
 }
-.oScore {
+.oScoreOn {
   margin: 1rem;
+  background: #0afdec;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0px 0px 12px #18191b;
+}
+.xScoreOff {
+  margin: 1rem;
+  padding: 1rem;
+  background: #80808042;
+  border-radius: 8px;
+}
+.oScoreOff {
+  margin: 1rem;
+  padding: 1rem;
+  background: #80808042;
+  border-radius: 8px;
+}
+.gameBtns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+.gameBtns button {
+  margin: 0.5rem;
+  border-radius: 4px;
+}
+.reset {
+  background: #f08484;
 }

@@ -1,13 +1,17 @@
 import "./App.css";
 import GameBoard from "./Components/GameBoard";
 import { useState } from "react";
-import ButtonBoard from "./Components/ButtonBoard";
 import produce from "immer";
 
 function App() {
   const [running, setRunning] = useState(false);
   const [xScore, setXScore] = useState(0);
   const [oScore, setOScore] = useState(0);
+  const [xScoreClass, setXScoreClass] = useState("xScoreOn");
+  const [oScoreClass, setOScoreClass] = useState("oScoreOff");
+  const [player, setPlayer] = useState("X");
+  const numCols = 3;
+  const numRows = 3;
 
   const resetBoard = () => {
     const newGrid = produce(grid, (gridCopy) => {
@@ -18,6 +22,9 @@ function App() {
       }
     });
     setGrid(newGrid);
+  };
+  const refreshPage = () => {
+    window.location.reload(false);
   };
 
   const checkWin = (g) => {
@@ -33,103 +40,127 @@ function App() {
       nine: g[2][2],
     };
     if (running) {
-      if (nums.one == nums.two && nums.three === nums.one && nums.one !== "") {
+      if (nums.one === nums.two && nums.three === nums.one && nums.one !== "") {
         if (nums.one === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.one === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       } else if (
-        nums.one == nums.five &&
+        nums.one === nums.five &&
         nums.nine === nums.one &&
         nums.one !== ""
       ) {
         if (nums.one === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.one === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       } else if (
-        nums.one == nums.four &&
+        nums.one === nums.four &&
         nums.seven === nums.one &&
         nums.one !== ""
       ) {
         if (nums.one === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.one === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       } else if (
-        nums.two == nums.five &&
+        nums.two === nums.five &&
         nums.eight === nums.two &&
         nums.two !== ""
       ) {
         if (nums.two === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.two === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       } else if (
-        nums.three == nums.five &&
+        nums.three === nums.five &&
         nums.seven === nums.three &&
         nums.three !== ""
       ) {
         if (nums.three === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.three === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       } else if (
-        nums.three == nums.six &&
+        nums.three === nums.six &&
         nums.nine === nums.three &&
         nums.three !== ""
       ) {
         if (nums.three === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.three === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       } else if (
-        nums.four == nums.five &&
+        nums.four === nums.five &&
         nums.six === nums.four &&
         nums.four !== ""
       ) {
         if (nums.five === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.five === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       } else if (
-        nums.seven == nums.eight &&
+        nums.seven === nums.eight &&
         nums.nine === nums.seven &&
         nums.seven !== ""
       ) {
         if (nums.eight === "X") {
           setXScore(xScore + 1);
+          alert("Player X won");
           resetBoard();
         } else if (nums.eight === "O") {
           setOScore(oScore + 1);
+          alert("Player O won");
           resetBoard();
         }
       }
     }
   };
 
-  const [player, setPlayer] = useState("X");
+  const switchClass = () => {
+    if (xScoreClass === "xScoreOn") {
+      setXScoreClass("xScoreOff");
+      setOScoreClass("oScoreOn");
+    } else if (xScoreClass === "xScoreOff") {
+      setXScoreClass("xScoreOn");
+      setOScoreClass("oScoreOff");
+    }
+  };
 
   const setUser = () => {
     if (player === "X") {
@@ -138,8 +169,6 @@ function App() {
       setPlayer("X");
     }
   };
-  const numCols = 3;
-  const numRows = 3;
 
   const [grid, setGrid] = useState(() => {
     const rows = [];
@@ -152,21 +181,36 @@ function App() {
   return (
     <div className="App">
       <div className="box">
-        {/* <ButtonBoard setPlayer={setPlayer} player={player} grid={grid} /> */}
         <div className="scores">
-          <div className="xScore">X: {xScore}</div>
-          <div className="oScore">O: {oScore}</div>
+          <div className={xScoreClass}>X: {xScore}</div>
+          <div className="gameBtns">
+            <button
+              onClick={() => {
+                resetBoard();
+              }}
+            >
+              Clear Board
+            </button>
+            <button
+              className="reset"
+              onClick={() => {
+                refreshPage();
+              }}
+            >
+              Reset
+            </button>
+          </div>
+          <div className={oScoreClass}>O: {oScore}</div>
         </div>
         <GameBoard
           numCols={numCols}
-          numRows={numRows}
           grid={grid}
-          setGrid={setGrid}
           player={player}
           setUser={setUser}
           checkWin={checkWin}
-          running={running}
           setRunning={setRunning}
+          switchClass={switchClass}
+          setGrid={setGrid}
         />
       </div>
     </div>
