@@ -2,8 +2,133 @@ import "./App.css";
 import GameBoard from "./Components/GameBoard";
 import { useState } from "react";
 import ButtonBoard from "./Components/ButtonBoard";
+import produce from "immer";
 
 function App() {
+  const [running, setRunning] = useState(false);
+  const [xScore, setXScore] = useState(0);
+  const [oScore, setOScore] = useState(0);
+
+  const resetBoard = () => {
+    const newGrid = produce(grid, (gridCopy) => {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          gridCopy[i][j] = "";
+        }
+      }
+    });
+    setGrid(newGrid);
+  };
+
+  const checkWin = (g) => {
+    const nums = {
+      one: g[0][0],
+      two: g[0][1],
+      three: g[0][2],
+      four: g[1][0],
+      five: g[1][1],
+      six: g[1][2],
+      seven: g[2][0],
+      eight: g[2][1],
+      nine: g[2][2],
+    };
+    if (running) {
+      if (nums.one == nums.two && nums.three === nums.one && nums.one !== "") {
+        if (nums.one === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.one === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      } else if (
+        nums.one == nums.five &&
+        nums.nine === nums.one &&
+        nums.one !== ""
+      ) {
+        if (nums.one === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.one === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      } else if (
+        nums.one == nums.four &&
+        nums.seven === nums.one &&
+        nums.one !== ""
+      ) {
+        if (nums.one === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.one === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      } else if (
+        nums.two == nums.five &&
+        nums.eight === nums.two &&
+        nums.two !== ""
+      ) {
+        if (nums.two === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.two === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      } else if (
+        nums.three == nums.five &&
+        nums.seven === nums.three &&
+        nums.three !== ""
+      ) {
+        if (nums.three === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.three === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      } else if (
+        nums.three == nums.six &&
+        nums.nine === nums.three &&
+        nums.three !== ""
+      ) {
+        if (nums.three === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.three === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      } else if (
+        nums.four == nums.five &&
+        nums.six === nums.four &&
+        nums.four !== ""
+      ) {
+        if (nums.five === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.five === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      } else if (
+        nums.seven == nums.eight &&
+        nums.nine === nums.seven &&
+        nums.seven !== ""
+      ) {
+        if (nums.eight === "X") {
+          setXScore(xScore + 1);
+          resetBoard();
+        } else if (nums.eight === "O") {
+          setOScore(oScore + 1);
+          resetBoard();
+        }
+      }
+    }
+  };
+
   const [player, setPlayer] = useState("X");
 
   const setUser = () => {
@@ -26,15 +151,24 @@ function App() {
 
   return (
     <div className="App">
-      <ButtonBoard setPlayer={setPlayer} player={player} />
-      <GameBoard
-        numCols={numCols}
-        numRows={numRows}
-        grid={grid}
-        setGrid={setGrid}
-        player={player}
-        setUser={setUser}
-      />
+      <div className="box">
+        {/* <ButtonBoard setPlayer={setPlayer} player={player} grid={grid} /> */}
+        <div className="scores">
+          <div className="xScore">X: {xScore}</div>
+          <div className="oScore">O: {oScore}</div>
+        </div>
+        <GameBoard
+          numCols={numCols}
+          numRows={numRows}
+          grid={grid}
+          setGrid={setGrid}
+          player={player}
+          setUser={setUser}
+          checkWin={checkWin}
+          running={running}
+          setRunning={setRunning}
+        />
+      </div>
     </div>
   );
 }

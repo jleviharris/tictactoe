@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import produce from "immer";
 
-const GameBoard = ({ grid, numCols, numRows, setGrid, player, setUser }) => {
+const GameBoard = ({
+  grid,
+  numCols,
+  numRows,
+  setGrid,
+  player,
+  setUser,
+  checkWin,
+  running,
+  setRunning,
+}) => {
   function handleClick(i, k) {
     if (grid[i][k] === "") {
       const newGrid = produce(grid, (gridCopy) => {
@@ -9,6 +19,9 @@ const GameBoard = ({ grid, numCols, numRows, setGrid, player, setUser }) => {
       });
       setGrid(newGrid);
       setUser();
+      setTimeout(() => {
+        checkWin(newGrid);
+      }, 300);
     }
   }
   return (
@@ -26,6 +39,8 @@ const GameBoard = ({ grid, numCols, numRows, setGrid, player, setUser }) => {
             key={i - k}
             onClick={() => {
               handleClick(i, k);
+
+              setRunning(true);
             }}
             style={{
               backgroundColor: "gray",

@@ -1,8 +1,20 @@
 .App {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-top: 10rem;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  box-shadow: 0px 0px 12px #18191b;
+  border-radius: 8px;
+  background: white;
+  padding: 1rem;
 }
 
 .boardContainer {
@@ -16,4 +28,27 @@
 .none {
   /* display: none; */
   background: whitesmoke;
+}
+.singleBox {
+  font-size: 10rem;
+  padding: 0;
+  margin: 0;
+  width: 165px;
+  height: 165px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.scores {
+  font-size: 2rem;
+  display: flex;
+  margin: 1rem;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.xScore {
+  margin: 1rem;
+}
+.oScore {
+  margin: 1rem;
 }
