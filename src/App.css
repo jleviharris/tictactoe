@@ -86,3 +86,14 @@
 .reset {
   background: #f08484;
 }
+@media screen and (max-width: 700px) {
+  .singleBox {
+    width: 110px;
+    height: 110px;
+    font-size: 6rem;
+  }
+  .boardContainer {
+    width: 330px;
+    height: auto;
+  }
+}
