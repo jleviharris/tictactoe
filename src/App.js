@@ -1,6 +1,6 @@
 import "./App.css";
 import GameBoard from "./Components/GameBoard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import produce from "immer";
 
 function App() {
@@ -10,31 +10,8 @@ function App() {
   const [xScoreClass, setXScoreClass] = useState("xScoreOn");
   const [oScoreClass, setOScoreClass] = useState("oScoreOff");
   const [player, setPlayer] = useState("X");
-  const [myTurn, setMyTurn] = useState(false);
-  const [computerTurn, setComputerTurn] = useState(false);
-  let players = ["X", "O"];
-
-  const [available, setAvailable] = useState(null);
   const numCols = 3;
   const numRows = 3;
-
-  useEffect(() => {
-    if (!available) {
-      checkComp();
-    }
-  }, []);
-
-  const checkComp = () => {
-    let newArray = [];
-    for (let i = 0; i < 3; i++) {
-      for (let k = 0; k < 3; k++) {
-        if (grid[i][k] === "") {
-          newArray.push([i, k]);
-        }
-      }
-    }
-    setAvailable(newArray);
-  };
 
   const resetBoard = () => {
     const newGrid = produce(grid, (gridCopy) => {
@@ -49,51 +26,6 @@ function App() {
   const refreshPage = () => {
     window.location.reload(false);
   };
-
-  // function equals3(a, b, c) {
-  //   return a == b && b == c && a != '';
-  // }
-
-  // function checkWinner() {
-  //   let winner = null;
-
-  //   // horizontal
-  //   for (let i = 0; i < 3; i++) {
-  //     if (equals3(board[i][0], board[i][1], board[i][2])) {
-  //       winner = board[i][0];
-  //     }
-  //   }
-
-  //   // Vertical
-  //   for (let i = 0; i < 3; i++) {
-  //     if (equals3(board[0][i], board[1][i], board[2][i])) {
-  //       winner = board[0][i];
-  //     }
-  //   }
-
-  //   // Diagonal
-  //   if (equals3(board[0][0], board[1][1], board[2][2])) {
-  //     winner = board[0][0];
-  //   }
-  //   if (equals3(board[2][0], board[1][1], board[0][2])) {
-  //     winner = board[2][0];
-  //   }
-
-  //   if (winner == null && available.length == 0) {
-  //     return 'tie';
-  //   } else {
-  //     return winner;
-  //   }
-  // }
-
-  // function nextTurn() {
-  //   let index = floor(random(available.length));
-  //   let spot = available.splice(index, 1)[0];
-  //   let i = spot[0];
-  //   let j = spot[1];
-  //   board[i][j] = players[currentPlayer];
-  //   currentPlayer = (currentPlayer + 1) % players.length;
-  // }
 
   const checkWin = (g) => {
     const nums = {
@@ -277,14 +209,8 @@ function App() {
           setUser={setUser}
           checkWin={checkWin}
           setRunning={setRunning}
-          running={running}
           switchClass={switchClass}
           setGrid={setGrid}
-          computerTurn={computerTurn}
-          setComputerTurn={setComputerTurn}
-          myTurn={myTurn}
-          setMyTurn={setMyTurn}
-          available={available}
         />
       </div>
     </div>
